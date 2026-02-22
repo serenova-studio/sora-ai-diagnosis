@@ -8,48 +8,188 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap');
-        
-        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; }
-        
-        /* スライドの切り替えアニメーション */
-        .slide { display: none; min-height: 100dvh; padding-top: 80px; padding-bottom: 120px; }
-        .slide.active { display: flex; animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* 重なり防止：メインコンテンツのスクロール許可 */
-        main { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #fafafa; }
+        .slide { display: none; min-height: 100dvh; width: 100%; padding-top: 90px; padding-bottom: 140px; align-items: center; }
+        .slide.active { display: flex; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        main { flex: 1; overflow-y: auto; }
+        .glass-nav { background: rgba(250, 250, 250, 0.9); backdrop-filter: blur(10px); }
     </style>
 </head>
-<body class="bg-zinc-50 text-zinc-800">
+<body class="text-zinc-800 antialiased">
 
     <div class="fixed inset-0 flex flex-col overflow-hidden">
-        <header class="shrink-0 w-full p-6 flex justify-between items-center z-20 text-zinc-400 text-xs md:text-sm font-medium tracking-widest bg-zinc-50/80 backdrop-blur-sm">
+        <header class="glass-nav shrink-0 w-full p-6 flex justify-between items-center z-50 text-zinc-400 text-xs font-bold tracking-[0.2em] border-b border-zinc-100">
             <span>AI DESIGN</span>
             <span id="slideNumber">1 / 8</span>
         </header>
 
-        <main id="main-container" class="relative">
+        <main id="main-container" class="flex-1 relative">
             
-            <div class="slide active flex-col items-center justify-center text-center space-y-8 px-6 max-w-4xl mx-auto" data-index="0">
-                <h1 class="text-3xl md:text-6xl font-bold tracking-tight text-zinc-900 leading-tight">
+            <div class="slide active flex-col justify-center text-center px-6 max-w-4xl mx-auto" data-index="0">
+                <h1 class="text-3xl md:text-6xl font-bold tracking-tight text-zinc-900 leading-tight mb-8">
                     AIを、自分の<br class="md:hidden" />「分身」にする働き方
                 </h1>
                 <p class="text-lg md:text-2xl text-zinc-600 leading-relaxed max-w-3xl">
-                    あなたが動き続けなくても、ビジネスが整っていく状態を作る。<br />
+                    あなたが動き続けなくても、ビジネスが整っていく状態を作る。<br>
                     それが、AIを分身にするということです。
                 </p>
             </div>
 
             <div class="slide flex-col justify-center px-6 max-w-4xl mx-auto w-full" data-index="1">
-                <h2 class="text-2xl md:text-4xl font-bold text-zinc-900 mb-8 text-center">こんな状態になっていませんか？</h2>
-                <div class="bg-white rounded-3xl p-6 md:p-10 border border-zinc-200 shadow-sm space-y-6">
-                    <div class="flex items-start"><i data-lucide="check-circle" class="shrink-0 w-6 h-6 md:w-8 md:h-8 mr-4 text-zinc-400"></i><p class="text-lg md:text-2xl text-zinc-700">発信を止めると、自分の存在感まで消えてしまう気がする</p></div>
-                    <div class="flex items-start"><i data-lucide="check-circle" class="shrink-0 w-6 h-6 md:w-8 md:h-8 mr-4 text-zinc-400"></i><p class="text-lg md:text-2xl text-zinc-700">日々寄せられる、同じような問い合わせの対応に追われている</p></div>
-                    <div class="flex items-start"><i data-lucide="check-circle" class="shrink-0 w-6 h-6 md:w-8 md:h-8 mr-4 text-zinc-400"></i><p class="text-lg md:text-2xl text-zinc-700">サービスの価値を伝えるために、毎回同じ説明を繰り返している</p></div>
-                    <div class="mt-10 pt-8 border-t border-zinc-200 text-center">
-                        <p class="text-xl md:text-2xl text-zinc-900 font-medium">「もう一人自分がいたら」と思いながら、すべてをひとりで抱え込んでいませんか？</p>
+                <h2 class="text-2xl md:text-4xl font-bold text-zinc-900 mb-10 text-center">こんな状態になっていませんか？</h2>
+                <div class="bg-white rounded-[2rem] p-8 md:p-12 border border-zinc-200 shadow-sm">
+                    <ul class="space-y-8">
+                        <li class="flex items-start"><i data-lucide="check-circle" class="shrink-0 w-6 h-6 md:w-8 md:h-8 mr-5 text-zinc-300"></i><span class="text-lg md:text-2xl text-zinc-700 leading-relaxed">発信を止めると、自分の存在感まで消えてしまう気がする</span></li>
+                        <li class="flex items-start"><i data-lucide="check-circle" class="shrink-0 w-6 h-6 md:w-8 md:h-8 mr-5 text-zinc-300"></i><span class="text-lg md:text-2xl text-zinc-700 leading-relaxed">日々寄せられる、同じような問い合わせの対応に追われている</span></li>
+                        <li class="flex items-start"><i data-lucide="check-circle" class="shrink-0 w-6 h-6 md:w-8 md:h-8 mr-5 text-zinc-300"></i><span class="text-lg md:text-2xl text-zinc-700 leading-relaxed">サービスの価値を伝えるために、毎回同じ説明を繰り返している</span></li>
+                    </ul>
+                    <div class="mt-10 pt-8 border-t border-zinc-100 text-center">
+                        <p class="text-xl md:text-2xl text-zinc-900 font-bold leading-relaxed">「もう一人自分がいたら」と思いながら、<br class="hidden md:block">すべてをひとりで抱え込んでいませんか？</p>
                     </div>
                 </div>
             </div>
 
-            <div
+            <div class="slide flex-col justify-center items-center text-center px-6 max-w-4xl mx-auto" data-index="2">
+                <div class="w-20 h-20 md:w-24 md:h-24 bg-zinc-900 rounded-2xl flex items-center justify-center shadow-lg mb-10">
+                    <i data-lucide="brain" class="w-10 h-10 md:w-12 md:h-12 text-zinc-100"></i>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold text-zinc-900 mb-8">AIで整えられること</h2>
+                <p class="text-lg md:text-2xl leading-relaxed text-zinc-600 text-left md:text-center">
+                    AIは、あなたの代わりになる魔法のツールではありません。<br><br class="hidden md:block">
+                    私が設計するのは、あなたが「本来やるべきこと」に戻るための補助線です。<br>
+                    あなたの思考と時間を整理し、ビジネスの土台を静かに整えます。
+                </p>
+            </div>
+
+            <div class="slide flex-col justify-center px-6 max-w-4xl mx-auto w-full" data-index="3">
+                <div class="text-xs md:text-sm font-bold text-zinc-400 tracking-[0.2em] mb-6">PLAN A</div>
+                <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12">
+                    <div class="w-20 h-20 md:w-32 md:h-32 bg-zinc-100 rounded-[2rem] flex items-center justify-center shrink-0">
+                        <i data-lucide="message-square" class="w-10 h-10 md:w-16 md:h-16 text-zinc-800"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl md:text-5xl font-bold text-zinc-900 mb-6">発信を整える</h3>
+                        <p class="text-zinc-600 text-lg md:text-2xl leading-relaxed">
+                            「毎日投稿しなければ」というプレッシャーから解放されます。<br><br>
+                            あなたの過去の知見や言葉の癖をAIに学習させ、あなたが休んでいる間も、あなたの熱量そのままに言葉を届け続ける仕組みを構築します。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide flex-col justify-center px-6 max-w-4xl mx-auto w-full" data-index="4">
+                <div class="text-xs md:text-sm font-bold text-zinc-400 tracking-[0.2em] mb-6">PLAN B</div>
+                <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12">
+                    <div class="w-20 h-20 md:w-32 md:h-32 bg-zinc-100 rounded-[2rem] flex items-center justify-center shrink-0">
+                        <i data-lucide="clock" class="w-10 h-10 md:w-16 md:h-16 text-zinc-800"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl md:text-5xl font-bold text-zinc-900 mb-6">業務を整える</h3>
+                        <p class="text-zinc-600 text-lg md:text-2xl leading-relaxed">
+                            繰り返される問い合わせ対応や、煩雑な事務作業。<br><br>
+                            これらをAIに委ねることで、あなたが真に顧客と向き合う時間や、新しい企画を深く練るための「余白」を手元に取り戻します。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide flex-col justify-center px-6 max-w-4xl mx-auto w-full" data-index="5">
+                <div class="text-xs md:text-sm font-bold text-zinc-400 tracking-[0.2em] mb-6">PLAN C</div>
+                <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12">
+                    <div class="w-20 h-20 md:w-32 md:h-32 bg-zinc-100 rounded-[2rem] flex items-center justify-center shrink-0">
+                        <i data-lucide="book-open" class="w-10 h-10 md:w-16 md:h-16 text-zinc-800"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl md:text-5xl font-bold text-zinc-900 mb-6">知識を整える</h3>
+                        <p class="text-zinc-600 text-lg md:text-2xl leading-relaxed">
+                            あなたの頭の中にある専門知識を、いつでも誰にでも伝わる形に整理します。<br><br>
+                            あなたが直接説明の場に立たなくても、顧客に確かな価値が届き続ける「資産」を作り上げます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide flex-col justify-center px-6 max-w-4xl mx-auto w-full" data-index="6">
+                <div class="border-l-4 border-zinc-200 pl-8 md:pl-12 py-2">
+                    <h2 class="text-2xl md:text-4xl font-bold text-zinc-900 mb-10">なぜ、チャットでの相談なのか</h2>
+                    <div class="space-y-8 text-lg md:text-2xl text-zinc-600 leading-relaxed">
+                        <p>私は対面や通話よりも、テキストで整理しながら進める設計を大切にしています。</p>
+                        <p>記録が正確に残ること。お互いの時間を無駄に奪わないこと。そして何より、感情に流されず、客観的に課題を見つめ直せること。</p>
+                        <p class="font-bold text-zinc-900 pt-4">優れた仕組みは、冷静な対話から生まれると信じているからです。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide flex-col justify-center px-6 max-w-4xl mx-auto text-center" data-index="7">
+                <h2 class="text-3xl md:text-5xl font-bold text-zinc-900 mb-8">どの部分から整えますか？</h2>
+                <p class="text-lg md:text-2xl text-zinc-600 mb-10">今、あなたを一番止めているものはどれですか？</p>
+                <div class="bg-white rounded-[2rem] p-6 md:p-10 border border-zinc-200 text-left mb-10 shadow-sm w-full max-w-2xl mx-auto">
+                    <ul class="space-y-4 text-xl md:text-2xl font-bold text-zinc-800">
+                        <li class="flex items-center p-4 bg-zinc-50 rounded-2xl border border-zinc-100"><span class="w-12 text-zinc-300 text-2xl md:text-3xl">A</span>発信がしんどい</li>
+                        <li class="flex items-center p-4 bg-zinc-50 rounded-2xl border border-zinc-100"><span class="w-12 text-zinc-300 text-2xl md:text-3xl">B</span>業務に追われている</li>
+                        <li class="flex items-center p-4 bg-zinc-50 rounded-2xl border border-zinc-100"><span class="w-12 text-zinc-300 text-2xl md:text-3xl">C</span>知識を形にしたい</li>
+                    </ul>
+                </div>
+                <div class="space-y-10 max-w-2xl mx-auto">
+                    <p class="text-lg md:text-xl text-zinc-700 leading-relaxed">
+                        LINEに戻って、該当する<span class="font-bold border-b-2 border-zinc-900">アルファベットを一文字</span>送ってください。<br>
+                        現状の課題を紐解く<span class="font-bold">「無料の業務整理ヒアリング」</span>を開始します。
+                    </p>
+                    <a href="#" class="inline-flex items-center justify-center px-12 py-6 text-xl font-bold text-white bg-zinc-900 rounded-full hover:bg-zinc-800 transition-all shadow-xl w-full sm:w-auto">
+                        <i data-lucide="smartphone" class="mr-3 w-6 h-6"></i>LINEに戻ってメッセージを送る
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <footer class="glass-nav shrink-0 w-full p-6 md:p-10 flex justify-between items-center z-50 border-t border-zinc-100">
+            <div id="dots" class="flex space-x-3"></div>
+            <div class="flex space-x-4">
+                <button id="prevBtn" class="p-4 rounded-full border border-zinc-200 text-zinc-500 hover:bg-white hover:text-zinc-900 disabled:opacity-20 transition-all">
+                    <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                </button>
+                <button id="nextBtn" class="p-4 rounded-full bg-zinc-900 text-white hover:bg-zinc-800 disabled:opacity-20 transition-all shadow-lg">
+                    <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('dots');
+        const mainContainer = document.getElementById('main-container');
+
+        function update() {
+            slides.forEach((s, i) => s.classList.toggle('active', i === current));
+            document.getElementById('slideNumber').innerText = `${current + 1} / ${slides.length}`;
+            document.getElementById('prevBtn').disabled = current === 0;
+            document.getElementById('nextBtn').disabled = current === slides.length - 1;
+            mainContainer.scrollTo(0, 0);
+            renderDots();
+        }
+
+        function renderDots() {
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = `h-2 rounded-full transition-all duration-300 ${i === current ? 'w-10 bg-zinc-800' : 'w-2 bg-zinc-200'}`;
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        document.getElementById('nextBtn').onclick = () => { if(current < slides.length - 1) { current++; update(); } };
+        document.getElementById('prevBtn').onclick = () => { if(current > 0) { current--; update(); } };
+        
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); document.getElementById('nextBtn').click(); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); document.getElementById('prevBtn').click(); }
+        });
+
+        update();
+        lucide.createIcons();
+    </script>
+</body>
+</html>
