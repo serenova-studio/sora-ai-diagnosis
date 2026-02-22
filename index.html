@@ -1,0 +1,259 @@
+import React, { useState, useEffect } from 'react';
+import { Brain, Clock, BookOpen, MessageSquare, CheckCircle, ArrowRight, ArrowLeft, Smartphone } from 'lucide-react';
+
+export default function App() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = 8;
+
+  const nextSlide = () => setCurrentSlide((prev) => Math.min(prev + 1, totalSlides - 1));
+  const prevSlide = () => setCurrentSlide((prev) => Math.max(prev - 1, 0));
+
+  // キーボード操作のサポート
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        prevSlide();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const slides = [
+    // スライド1
+    <div key="1" className="flex flex-col items-center justify-center h-full text-center space-y-8 px-6 animate-in fade-in duration-700">
+      <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-900 leading-tight">
+        AIを、自分の<br className="md:hidden" />「分身」にする働き方
+      </h1>
+      <p className="text-lg md:text-xl lg:text-2xl text-zinc-600 leading-relaxed max-w-3xl">
+        あなたが動き続けなくても、ビジネスが整っていく状態を作る。<br />
+        それが、AIを分身にするということです。
+      </p>
+    </div>,
+
+    // スライド2
+    <div key="2" className="flex flex-col justify-center h-full px-6 max-w-4xl mx-auto animate-in fade-in duration-700">
+      <h2 className="text-2xl md:text-4xl font-bold text-zinc-900 mb-12 text-center">
+        こんな状態になっていませんか？
+      </h2>
+      <div className="bg-white rounded-3xl p-8 md:p-12 border border-zinc-200 shadow-sm">
+        <ul className="space-y-6 md:space-y-8">
+          {[
+            '発信を止めると、自分の存在感まで消えてしまう気がする',
+            '日々寄せられる、同じような問い合わせの対応に追われている',
+            'サービスの価値を伝えるために、毎回同じ説明を繰り返している'
+          ].map((item, index) => (
+            <li key={index} className="flex items-start">
+              <CheckCircle className="flex-shrink-0 h-6 w-6 md:h-8 md:w-8 text-zinc-400 mr-4 md:mr-6 mt-1" />
+              <span className="text-lg md:text-2xl text-zinc-700 leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-10 pt-8 border-t border-zinc-200">
+          <p className="text-xl md:text-2xl text-zinc-900 font-medium leading-relaxed text-center">
+            「もう一人自分がいたら」と思いながら、<br className="hidden md:block" />
+            すべてをひとりで抱え込んでいませんか？
+          </p>
+        </div>
+      </div>
+    </div>,
+
+    // スライド3
+    <div key="3" className="flex flex-col items-center justify-center h-full text-center space-y-10 px-6 max-w-4xl mx-auto animate-in fade-in duration-700">
+      <div className="w-20 h-20 md:w-24 md:h-24 bg-zinc-900 rounded-2xl flex items-center justify-center shadow-lg">
+        <Brain className="w-10 h-10 md:w-12 md:h-12 text-zinc-100" />
+      </div>
+      <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-900">
+        AIで整えられること
+      </h2>
+      <p className="text-lg md:text-2xl leading-relaxed text-zinc-600 text-left md:text-center">
+        AIは、あなたの代わりになる魔法のツールではありません。<br /><br className="hidden md:block" />
+        私が設計するのは、あなたが「本来やるべきこと」に戻るための補助線です。<br />
+        あなたの思考と時間を整理し、ビジネスの土台を静かに整えます。
+      </p>
+    </div>,
+
+    // スライド4 (Plan A)
+    <div key="4" className="flex flex-col justify-center h-full px-6 max-w-4xl mx-auto animate-in fade-in duration-700">
+      <div className="text-sm md:text-base font-bold text-zinc-400 tracking-widest mb-4">PLAN A</div>
+      <div className="md:flex items-start gap-8 md:gap-12">
+        <div className="w-20 h-20 md:w-32 md:h-32 bg-zinc-100 rounded-3xl flex items-center justify-center shrink-0 mb-6 md:mb-0">
+          <MessageSquare className="w-10 h-10 md:w-16 md:h-16 text-zinc-800" />
+        </div>
+        <div>
+          <h3 className="text-3xl md:text-5xl font-bold text-zinc-900 mb-6 md:mb-8">発信を整える</h3>
+          <p className="text-zinc-600 leading-relaxed text-lg md:text-2xl">
+            「毎日投稿しなければ」というプレッシャーから解放されます。<br /><br />
+            あなたの過去の知見や言葉の癖をAIに学習させ、あなたが休んでいる間も、あなたの熱量そのままに言葉を届け続ける仕組みを構築します。
+          </p>
+        </div>
+      </div>
+    </div>,
+
+    // スライド5 (Plan B)
+    <div key="5" className="flex flex-col justify-center h-full px-6 max-w-4xl mx-auto animate-in fade-in duration-700">
+      <div className="text-sm md:text-base font-bold text-zinc-400 tracking-widest mb-4">PLAN B</div>
+      <div className="md:flex items-start gap-8 md:gap-12">
+        <div className="w-20 h-20 md:w-32 md:h-32 bg-zinc-100 rounded-3xl flex items-center justify-center shrink-0 mb-6 md:mb-0">
+          <Clock className="w-10 h-10 md:w-16 md:h-16 text-zinc-800" />
+        </div>
+        <div>
+          <h3 className="text-3xl md:text-5xl font-bold text-zinc-900 mb-6 md:mb-8">業務を整える</h3>
+          <p className="text-zinc-600 leading-relaxed text-lg md:text-2xl">
+            繰り返される問い合わせ対応や、煩雑な事務作業。<br /><br />
+            これらをAIに委ねることで、あなたが真に顧客と向き合う時間や、新しい企画を深く練るための「余白」を手元に取り戻します。
+          </p>
+        </div>
+      </div>
+    </div>,
+
+    // スライド6 (Plan C)
+    <div key="6" className="flex flex-col justify-center h-full px-6 max-w-4xl mx-auto animate-in fade-in duration-700">
+      <div className="text-sm md:text-base font-bold text-zinc-400 tracking-widest mb-4">PLAN C</div>
+      <div className="md:flex items-start gap-8 md:gap-12">
+        <div className="w-20 h-20 md:w-32 md:h-32 bg-zinc-100 rounded-3xl flex items-center justify-center shrink-0 mb-6 md:mb-0">
+          <BookOpen className="w-10 h-10 md:w-16 md:h-16 text-zinc-800" />
+        </div>
+        <div>
+          <h3 className="text-3xl md:text-5xl font-bold text-zinc-900 mb-6 md:mb-8">知識を整える</h3>
+          <p className="text-zinc-600 leading-relaxed text-lg md:text-2xl">
+            あなたの頭の中にある専門知識を、いつでも誰にでも伝わる形に整理します。<br /><br />
+            あなたが直接説明の場に立たなくても、顧客に確かな価値が届き続ける「資産」を作り上げます。
+          </p>
+        </div>
+      </div>
+    </div>,
+
+    // スライド7 (Philosophy)
+    <div key="7" className="flex flex-col justify-center h-full px-6 max-w-4xl mx-auto animate-in fade-in duration-700">
+      <div className="border-l-4 border-zinc-300 pl-6 md:pl-10 py-2">
+        <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-8 md:mb-10">
+          なぜ、チャットでの相談なのか
+        </h2>
+        <div className="space-y-6 md:space-y-8 text-lg md:text-2xl text-zinc-600 leading-relaxed">
+          <p>
+            私は対面や通話よりも、テキストで整理しながら進める設計を大切にしています。
+          </p>
+          <p>
+            記録が正確に残ること。<br />
+            お互いの時間を無駄に奪わないこと。<br />
+            そして何より、感情に流されず、客観的に課題を見つめ直せること。
+          </p>
+          <p className="font-bold text-zinc-900 pt-4">
+            優れた仕組みは、冷静な対話から生まれると信じているからです。
+          </p>
+        </div>
+      </div>
+    </div>,
+
+    // スライド8 (CTA)
+    <div key="8" className="flex flex-col justify-center h-full px-6 max-w-4xl mx-auto text-center animate-in fade-in duration-700">
+      <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 mb-6 md:mb-8">
+        どの部分から整えますか？
+      </h2>
+      <p className="text-lg md:text-2xl text-zinc-600 mb-10 md:mb-12">
+        今、あなたを一番止めているものはどれですか？
+      </p>
+
+      <div className="bg-white rounded-3xl p-6 md:p-10 border border-zinc-200 text-left max-w-2xl mx-auto mb-10 md:mb-14 shadow-sm w-full">
+        <ul className="space-y-4 md:space-y-6 text-lg md:text-2xl font-medium text-zinc-800">
+          <li className="flex items-center p-3 md:p-4 rounded-xl bg-zinc-50 border border-zinc-100">
+            <span className="w-10 md:w-12 text-zinc-400 font-bold text-xl md:text-3xl">A</span> 発信がしんどい
+          </li>
+          <li className="flex items-center p-3 md:p-4 rounded-xl bg-zinc-50 border border-zinc-100">
+            <span className="w-10 md:w-12 text-zinc-400 font-bold text-xl md:text-3xl">B</span> 業務に追われている
+          </li>
+          <li className="flex items-center p-3 md:p-4 rounded-xl bg-zinc-50 border border-zinc-100">
+            <span className="w-10 md:w-12 text-zinc-400 font-bold text-xl md:text-3xl">C</span> 知識を形にしたい
+          </li>
+        </ul>
+      </div>
+
+      <div className="space-y-8 md:space-y-10">
+        <p className="text-lg md:text-xl text-zinc-700 leading-relaxed">
+          LINEに戻って、該当する<span className="font-bold border-b-2 border-zinc-900">アルファベットを一文字</span>送ってください。<br />
+          現状の課題を紐解き、どこから整えるべきか道筋を立てる<br className="hidden md:block" />
+          <span className="font-bold">「無料の業務整理ヒアリング」</span>を開始します。
+        </p>
+        
+        <div>
+          <a 
+            href="#" 
+            className="inline-flex items-center justify-center px-8 md:px-12 py-5 md:py-6 text-lg md:text-xl font-bold text-white bg-zinc-900 rounded-full hover:bg-zinc-800 transition-colors shadow-lg w-full sm:w-auto"
+          >
+            <Smartphone className="w-6 h-6 md:w-7 md:h-7 mr-3" />
+            LINEに戻ってメッセージを送る
+            <ArrowRight className="w-5 h-5 md:w-6 md:h-6 ml-3" />
+          </a>
+        </div>
+      </div>
+    </div>
+  ];
+
+  return (
+    <div className="fixed inset-0 bg-zinc-50 font-sans text-zinc-800 overflow-hidden flex flex-col">
+      
+      {/* ヘッダー（スライド番号） */}
+      <header className="absolute top-0 w-full p-6 flex justify-between items-center z-10 text-zinc-400 text-sm md:text-base font-medium tracking-widest">
+        <span>AI DESIGN</span>
+        <span>{currentSlide + 1} / {totalSlides}</span>
+      </header>
+
+      {/* スライド本体 */}
+      <main className="flex-1 relative">
+        {slides[currentSlide]}
+      </main>
+
+      {/* ナビゲーション（下部） */}
+      <footer className="absolute bottom-0 w-full p-6 md:p-10 flex justify-between items-center z-10">
+        
+        {/* プログレスインジケーター */}
+        <div className="flex space-x-2">
+          {Array.from({ length: totalSlides }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                currentSlide === index ? 'w-8 bg-zinc-800' : 'w-2 bg-zinc-300 hover:bg-zinc-400'
+              }`}
+              aria-label={`スライド ${index + 1} へ`}
+            />
+          ))}
+        </div>
+
+        {/* コントロールボタン */}
+        <div className="flex space-x-4">
+          <button
+            onClick={prevSlide}
+            disabled={currentSlide === 0}
+            className={`p-3 md:p-4 rounded-full border transition-colors ${
+              currentSlide === 0 
+                ? 'border-zinc-200 text-zinc-300 cursor-not-allowed' 
+                : 'border-zinc-300 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'
+            }`}
+            aria-label="前のスライド"
+          >
+            <ArrowLeft className="w-5 h-5 md:w-6 md:h-6" />
+          </button>
+          <button
+            onClick={nextSlide}
+            disabled={currentSlide === totalSlides - 1}
+            className={`p-3 md:p-4 rounded-full border transition-colors ${
+              currentSlide === totalSlides - 1 
+                ? 'border-zinc-200 text-zinc-300 cursor-not-allowed' 
+                : 'border-zinc-800 text-zinc-50 bg-zinc-800 hover:bg-zinc-700'
+            }`}
+            aria-label="次のスライド"
+          >
+            <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
+          </button>
+        </div>
+      </footer>
+    </div>
+  );
+}
