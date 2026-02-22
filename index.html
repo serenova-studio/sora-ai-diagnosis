@@ -3,97 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIを自分の分身にする働き方</title>
+    <title>AIを、自分の「分身」にする働き方</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        .slide { display: none; }
-        .slide.active { display: flex; animation: fadeIn 0.7s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap');
+        
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; }
+        
+        /* スライドの切り替えアニメーション */
+        .slide { display: none; min-height: 100dvh; padding-top: 80px; padding-bottom: 120px; }
+        .slide.active { display: flex; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 重なり防止：メインコンテンツのスクロール許可 */
+        main { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     </style>
 </head>
-<body class="bg-zinc-50 font-sans text-zinc-800 overflow-hidden">
+<body class="bg-zinc-50 text-zinc-800">
 
-    <div class="fixed inset-0 flex flex-col">
-        <header class="absolute top-0 w-full p-6 flex justify-between items-center z-10 text-zinc-400 text-sm font-medium tracking-widest">
+    <div class="fixed inset-0 flex flex-col overflow-hidden">
+        <header class="shrink-0 w-full p-6 flex justify-between items-center z-20 text-zinc-400 text-xs md:text-sm font-medium tracking-widest bg-zinc-50/80 backdrop-blur-sm">
             <span>AI DESIGN</span>
             <span id="slideNumber">1 / 8</span>
         </header>
 
-        <main class="flex-1 relative flex items-center justify-center">
+        <main id="main-container" class="relative">
             
-            <div class="slide active flex-col items-center text-center space-y-8 px-6 max-w-4xl" data-index="0">
+            <div class="slide active flex-col items-center justify-center text-center space-y-8 px-6 max-w-4xl mx-auto" data-index="0">
                 <h1 class="text-3xl md:text-6xl font-bold tracking-tight text-zinc-900 leading-tight">
                     AIを、自分の<br class="md:hidden" />「分身」にする働き方
                 </h1>
-                <p class="text-lg md:text-2xl text-zinc-600 leading-relaxed">
-                    あなたが動き続けなくても、ビジネスが整っていく状態を作る。<br>
+                <p class="text-lg md:text-2xl text-zinc-600 leading-relaxed max-w-3xl">
+                    あなたが動き続けなくても、ビジネスが整っていく状態を作る。<br />
                     それが、AIを分身にするということです。
                 </p>
             </div>
 
-            <div class="slide flex-col justify-center px-6 max-w-4xl w-full" data-index="1">
+            <div class="slide flex-col justify-center px-6 max-w-4xl mx-auto w-full" data-index="1">
                 <h2 class="text-2xl md:text-4xl font-bold text-zinc-900 mb-8 text-center">こんな状態になっていませんか？</h2>
-                <div class="bg-white rounded-3xl p-8 border border-zinc-200 shadow-sm space-y-6">
-                    <p class="text-lg md:text-2xl text-zinc-700 flex items-start"><i data-lucide="check-circle" class="mr-4 text-zinc-400"></i>発信を止めると、自分の存在感まで消えてしまう気がする</p>
-                    <p class="text-lg md:text-2xl text-zinc-700 flex items-start"><i data-lucide="check-circle" class="mr-4 text-zinc-400"></i>日々寄せられる、同じような問い合わせの対応に追われている</p>
-                    <p class="text-lg md:text-2xl text-zinc-700 flex items-start"><i data-lucide="check-circle" class="mr-4 text-zinc-400"></i>サービスの価値を伝えるために、毎回同じ説明を繰り返している</p>
+                <div class="bg-white rounded-3xl p-6 md:p-10 border border-zinc-200 shadow-sm space-y-6">
+                    <div class="flex items-start"><i data-lucide="check-circle" class="shrink-0 w-6 h-6 md:w-8 md:h-8 mr-4 text-zinc-400"></i><p class="text-lg md:text-2xl text-zinc-700">発信を止めると、自分の存在感まで消えてしまう気がする</p></div>
+                    <div class="flex items-start"><i data-lucide="check-circle" class="shrink-0 w-6 h-6 md:w-8 md:h-8 mr-4 text-zinc-400"></i><p class="text-lg md:text-2xl text-zinc-700">日々寄せられる、同じような問い合わせの対応に追われている</p></div>
+                    <div class="flex items-start"><i data-lucide="check-circle" class="shrink-0 w-6 h-6 md:w-8 md:h-8 mr-4 text-zinc-400"></i><p class="text-lg md:text-2xl text-zinc-700">サービスの価値を伝えるために、毎回同じ説明を繰り返している</p></div>
+                    <div class="mt-10 pt-8 border-t border-zinc-200 text-center">
+                        <p class="text-xl md:text-2xl text-zinc-900 font-medium">「もう一人自分がいたら」と思いながら、すべてをひとりで抱え込んでいませんか？</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="slide flex-col justify-center px-6 max-w-4xl text-center" data-index="7">
-                <h2 class="text-3xl md:text-5xl font-bold text-zinc-900 mb-8">どの部分から整えますか？</h2>
-                <div class="bg-white rounded-3xl p-6 border border-zinc-200 text-left mb-10 shadow-sm">
-                    <ul class="space-y-4 text-xl font-medium text-zinc-800">
-                        <li class="p-4 bg-zinc-50 rounded-xl border border-zinc-100"><span class="mr-4 font-bold text-zinc-400">A</span> 発信がしんどい</li>
-                        <li class="p-4 bg-zinc-50 rounded-xl border border-zinc-100"><span class="mr-4 font-bold text-zinc-400">B</span> 業務に追われている</li>
-                        <li class="p-4 bg-zinc-50 rounded-xl border border-zinc-100"><span class="mr-4 font-bold text-zinc-400">C</span> 知識を形にしたい</li>
-                    </ul>
-                </div>
-                <a href="#" class="inline-flex items-center justify-center px-8 py-5 text-xl font-bold text-white bg-zinc-900 rounded-full hover:bg-zinc-800 transition-colors shadow-lg">
-                    <i data-lucide="smartphone" class="mr-3"></i>LINEに戻ってメッセージを送る
-                </a>
-            </div>
-
-        </main>
-
-        <footer class="absolute bottom-0 w-full p-6 md:p-10 flex justify-between items-center z-10">
-            <div id="dots" class="flex space-x-2"></div>
-            <div class="flex space-x-4">
-                <button id="prevBtn" class="p-3 rounded-full border border-zinc-300 text-zinc-600 hover:bg-zinc-100 disabled:opacity-30"><i data-lucide="arrow-left"></i></button>
-                <button id="nextBtn" class="p-3 rounded-full bg-zinc-900 text-white hover:bg-zinc-800 disabled:opacity-30"><i data-lucide="arrow-right"></i></button>
-            </div>
-        </footer>
-    </div>
-
-    <script>
-        // シンプルなスライド制御ロジック
-        let current = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dotsContainer = document.getElementById('dots');
-        
-        function update() {
-            slides.forEach((s, i) => s.classList.toggle('active', i === current));
-            document.getElementById('slideNumber').innerText = `${current + 1} / ${slides.length}`;
-            document.getElementById('prevBtn').disabled = current === 0;
-            document.getElementById('nextBtn').disabled = current === slides.length - 1;
-            renderDots();
-        }
-
-        function renderDots() {
-            dotsContainer.innerHTML = '';
-            slides.forEach((_, i) => {
-                const dot = document.createElement('div');
-                dot.className = `h-2 rounded-full transition-all ${i === current ? 'w-8 bg-zinc-800' : 'w-2 bg-zinc-300'}`;
-                dotsContainer.appendChild(dot);
-            });
-        }
-
-        document.getElementById('nextBtn').onclick = () => { if(current < slides.length - 1) { current++; update(); } };
-        document.getElementById('prevBtn').onclick = () => { if(current > 0) { current--; update(); } };
-        
-        update();
-        lucide.createIcons();
-    </script>
-</body>
-</html>
+            <div
