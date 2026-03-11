@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      body { font-family: 'Noto Sans JP', sans-serif; background-color: #fcfaf2; color: #333; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+      .container { width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; }
+      .card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; transition: 0.3s; }
+      h1 { color: #5a7d7c; font-size: 1.4rem; margin-bottom: 20px; }
+      p { line-height: 1.6; color: #666; font-size: 0.95rem; }
+      .btn { display: block; width: 100%; background-color: #8fbca4; color: white; padding: 15px; border-radius: 30px; text-decoration: none; font-weight: bold; margin-top: 10px; border: none; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+      .btn:hover { background-color: #7aa991; transform: translateY(-2px); }
+      .option-btn { background-color: white; color: #5a7d7c; border: 2px solid #8fbca4; margin-bottom: 12px; }
+      .option-btn:hover { background-color: #f0f7f3; }
+      .hidden { display: none; }
+      .progress { font-size: 0.8rem; color: #999; margin-bottom: 10px; }
+      .hero-img { width: 100%; border-radius: 15px; margin-bottom: 20px; height: auto; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="start-screen" class="card">
+        <img src="https://lh3.googleusercontent.com/d/1T1vBKOpJ5Q3vvB0nct08TX6g-v0Mz1vV" class="hero-img" alt="AI相棒">
+        <h1>ひとりビジネスの「手が足りない」を AIと一緒に整える</h1>
+        <p>やりたいことはあるけれど、時間が足りないあなたへ。<br>最適な「AI相棒化プラン」を1分で診断します。</p>
+        <button class="btn" onclick="nextQuestion(0)">診断をスタートする</button>
+      </div>
+
+      <div id="question-screen" class="card hidden">
+        <div class="progress" id="progress-text">Q 1 / 5</div>
+        <h1 id="question-text">質問文がここに入ります</h1>
+        <div id="options-container"></div>
+      </div>
+
+      <div id="loading-screen" class="card hidden">
+        <h1>分析中...</h1>
+        <p>あなたのビジネスに最適なAI活用プランを<br>導き出しています。少々お待ちください。</p>
+      </div>
+
+      <div id="result-screen" class="card hidden">
+        <p>あなたにぴったりのAI活用スタイルは...</p>
+        <h1 id="result-title">診断結果タイトル</h1>
+        <p id="result-desc">ここに説明が入ります。</p>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+        <p style="font-size: 0.8rem; text-align: left;">
+          <b>【私の解決策】</b><br>
+          <span id="my-solution">ここに実績に基づいた提案が入ります。</span>
+        </p>
+        <button class="btn" onclick="window.top.location.href='https://line.me/R/ti/p/@YOUR_ID'">LINEで詳しく相談する</button>
+      </div>
+    </div>
+
+    <script>
+      const questions = [
+        { q: "集客で一番ストレスなのは？", a: ["動画や投稿の制作時間", "LINE誘導がうまくいかない", "返信や日程調整が大変"], type: ["A", "C", "B"] },
+        { q: "AI相棒にまず何を任せたい？", a: ["24時間、自動で接客", "自分の知識を本にしてほしい", "事務作業を自動化したい"], type: ["B", "C", "B"] },
+        { q: "ビジネスの「もったいない」は？", a: ["実績がスマホに眠ったまま", "LINEを活用できていない", "技術的な壁で止まっている"], type: ["C", "B", "B"] },
+        { q: "一番楽にしたい作業は？", a: ["SNSの投稿作成", "顧客への連絡・通知", "ブログや資料の執筆"], type: ["A", "B", "C"] },
+        { q: "半年後の理想の状態は？", a: ["自由な時間を増やしたい", "自動で売れる仕組みを作りたい", "AIを使いこなすプロになりたい"], type: ["B", "B", "C"] }
+      ];
+
+      let currentStep = 0;
+      let scores = { A: 0, B: 0, C: 0 };
+
+      function nextQuestion(index) {
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('question-screen').classList.remove('hidden');
+        
+        if (currentStep < questions.length) {
+          const qData = questions[currentStep];
+          document.getElementById('progress-text').innerText = `Q ${currentStep + 1} / 5`;
+          document.getElementById('question-text').innerText = qData.q;
+          
+          const container = document.getElementById('options-container');
+          container.innerHTML = '';
+          qData.a.forEach((text, i) => {
+            const btn = document.createElement('button');
+            btn.innerText = text;
+            btn.className = 'btn option-btn';
+            btn.onclick = () => {
+              scores[qData.type[i]]++;
+              currentStep++;
+              nextQuestion(currentStep);
+            };
+            container.appendChild(btn);
+          });
+        } else {
+          showResult();
+        }
+      }
+
+      function showResult() {
+        document.getElementById('question-screen').classList.add('hidden');
+        document.getElementById('loading-screen').classList.remove('hidden');
+
+        setTimeout(() => {
+          document.getElementById('loading-screen').classList.add('hidden');
+          document.getElementById('result-screen').classList.remove('hidden');
+
+          let finalType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+          
+          const results = {
+            A: { title: "SNS集客ブースト型", desc: "発信の質とスピードを上げたいあなた。AIでクリエイティブを自動化しましょう。", sol: "占い垢を10日で1万リーチさせた手法で、あなたのSNS運用を代行・サポートします。" },
+            B: { title: "自動接客・仕組み化型", desc: "日々の対応を自動化し、自由を作りたいあなた。LINEとAIの連携が最適です。", sol: "この診断アプリのような自動応答システムを構築し、あなたの時間を月20時間浮かせます。" },
+            C: { title: "資産構築・コンテンツ型", desc: "自分のノウハウを形にしたいあなた。Kindle出版や教材化をAIで加速させましょう。", sol: "企画から出版までAIで伴走。寝ている間も価値を生む『デジタル資産』を一緒に作ります。" }
+          };
+
+          document.getElementById('result-title').innerText = results[finalType].title;
+          document.getElementById('result-desc').innerText = results[finalType].desc;
+          document.getElementById('my-solution').innerText = results[finalType].sol;
+          
+          // データを保存する処理
+          google.script.run.saveData(finalType, scores);
+        }, 1500);
+      }
+    </script>
+  </body>
+</html>
